@@ -1,0 +1,36 @@
+[project]
+name = "triage-agent"
+version = "0.1.0"
+description = "An autonomous AI agent that investigates whether a URL is safe, suspicious, or malicious."
+authors = [{ name = "Abdulla Al Bassam", email = "albassam.004@gmail.com" }]
+requires-python = ">=3.12"
+readme = "README.md"
+
+dependencies = [
+    # The library for talking to Claude (the AI brain).
+    "anthropic>=0.40.0",
+    # Loads keys from the .env file into the program's environment.
+    "python-dotenv>=1.0.0",
+    # Defines structured shapes for data (e.g. what a "verdict" looks like).
+    "pydantic>=2.5.0",
+    # Nice terminal output: colours, panels, progress.
+    "rich>=13.0.0",
+    # Builds the command-line interface.
+    "typer>=0.12.0",
+]
+
+[project.scripts]
+# After installing, you can run `triage run <url>` from anywhere in the project.
+triage = "triage_agent.cli:app"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/triage_agent"]

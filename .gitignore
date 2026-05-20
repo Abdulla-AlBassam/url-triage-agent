@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets — never commit
+.env
+
+# Local data
+*.db
+*.sqlite
+reports/*.json
+reports/*.md
+!reports/.gitkeep
+
+# OS noise
+.DS_Store
