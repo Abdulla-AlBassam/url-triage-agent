@@ -1,0 +1,128 @@
+╭───── URL Triage Agent ──────╮
+│ Triaging https://github.com │
+╰─────────────────────────────╯
+Using model: claude-sonnet-4-6
+
+Starting with cheap, parallel checks.
+
+→ whois_lookup {'domain': 'github.com'}
+✓ {
+  "domain": "github.com",
+  "registrar": "MarkMonitor, Inc.",
+  "creation_date": "2007-10-09",
+  "expiry_date": "2026-10-09",
+  "age_days": 6798,
+  "name_servers": [
+    "dns1.p08.nsone.net",
+    "dns2.p08.nsone.net",
+    "dns3.p08.nsone.net",
+    "dns4.p08.nsone.net",
+    "ns-1283.awsdns-32.org",
+    "ns-1707.awsdns-21.co.uk",
+    "ns-421.awsdns-52.com",
+    "ns-520.awsdns-01.net"
+  ],
+  "status": [
+    "clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited",
+    "clientTransfer
+
+
+→ dns_lookup {'hostname': 'github.com'}
+✓ {
+  "hostname": "github.com",
+  "a_records": [
+    "140.82.112.3"
+  ],
+  "a_record_ttl": 11,
+  "aaaa_records": [],
+  "mx_records": [
+    "0 github-com.mail.protection.outlook.com"
+  ],
+  "ns_records": [
+    "dns4.p08.nsone.net",
+    "ns-1283.awsdns-32.org",
+    "ns-1707.awsdns-21.co.uk",
+    "ns-421.awsdns-52.com",
+    "ns-520.awsdns-01.net",
+    "dns1.p08.nsone.net",
+    "dns2.p08.nsone.net",
+    "dns3.p08.nsone.net"
+  ],
+  "txt_records": [],
+  "timeouts": [
+    "TXT"
+  ]
+}
+
+→ virustotal_lookup {'url': 'https://github.com'}
+✓ {
+  "url": "https://github.com",
+  "found": true,
+  "malicious_count": 0,
+  "suspicious_count": 0,
+  "harmless_count": 64,
+  "undetected_count": 28,
+  "engines_flagged": [],
+  "reputation": 293,
+  "first_submission_date": 1303749234,
+  "last_analysis_date": 1779241922,
+  "categories": [
+    "Information Technology (alphaMountain.ai)",
+    "computersandsoftware",
+    "web applications",
+    "information technology",
+    "information technology"
+  ]
+}
+
+→ urlhaus_lookup {'url': 'https://github.com'}
+✓ {
+  "url": "https://github.com",
+  "found": false
+}
+
+All signals are unambiguously clean. No further investigation needed.
+
+→ write_report {'verdict': 'BENIGN', 'confidence': 10, 'explanation': 'This is 
+the legitimate GitHub.com website, owned and operated by Microsoft/GitHub Inc. 
+The domain is nearly 19 years old, registered through MarkMonitor (the 
+enterprise registrar used by major brands), protected by all ICANN EPP lock 
+statuses, and backed by AWS + NSOne DNS infrastructure. Zero threat-intel 
+detections across all checked sources.', 'evidence': ['Domain age: 6,798 days 
+(created 2007-10-09) — far from a fresh phishing domain.', 'Registrar: 
+MarkMonitor, Inc. — the registrar of choice for high-value brand protection.', 
+'ICANN EPP locks: clientDeleteProhibited, clientTransferProhibited, 
+clientUpdateProhibited — standard for enterprise/brand-protected domains.', 
+'DNS: Resolves to 140.82.112.3 (known GitHub IP range) with AWS Route53 + NSOne 
+nameservers.', "MX: microsoft/outlook mail protection — consistent with GitHub's
+known mail infrastructure.", 'VirusTotal: 0 malicious, 0 suspicious, 64 harmless
+votes; reputation score +293.', 'URLhaus: No record found — not associated with 
+any malware distribution.']}
+────────────────────────────────────────────────────────────────────────────────
+╭────────────────────────────────── Verdict ───────────────────────────────────╮
+│ BENIGN                                                                       │
+│ Confidence: 10/10                                                            │
+│                                                                              │
+│ This is the legitimate GitHub.com website, owned and operated by             │
+│ Microsoft/GitHub Inc. The domain is nearly 19 years old, registered through  │
+│ MarkMonitor (the enterprise registrar used by major brands), protected by    │
+│ all ICANN EPP lock statuses, and backed by AWS + NSOne DNS infrastructure.   │
+│ Zero threat-intel detections across all checked sources.                     │
+│                                                                              │
+│ Evidence                                                                     │
+│   • Domain age: 6,798 days (created 2007-10-09) — far from a fresh phishing  │
+│ domain.                                                                      │
+│   • Registrar: MarkMonitor, Inc. — the registrar of choice for high-value    │
+│ brand protection.                                                            │
+│   • ICANN EPP locks: clientDeleteProhibited, clientTransferProhibited,       │
+│ clientUpdateProhibited — standard for enterprise/brand-protected domains.    │
+│   • DNS: Resolves to 140.82.112.3 (known GitHub IP range) with AWS Route53 + │
+│ NSOne nameservers.                                                           │
+│   • MX: microsoft/outlook mail protection — consistent with GitHub's known   │
+│ mail infrastructure.                                                         │
+│   • VirusTotal: 0 malicious, 0 suspicious, 64 harmless votes; reputation     │
+│ score +293.                                                                  │
+│   • URLhaus: No record found — not associated with any malware distribution. │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+Saved to reports/20260520-032524_github.com.json
