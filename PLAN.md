@@ -1,4 +1,9 @@
-# URL Triage Agent — Plan
+# URL Triage Agent: Plan
+
+> **Historical document.** This is the original two-day plan written before the
+> build. Two items in the Day 2 list (the FastAPI web UI and the SQLite store)
+> were cut during the second day; the time went into hardening the sandbox
+> instead. For the as-built design, see [`TECHNICAL.md`](TECHNICAL.md).
 
 A SOC-style triage tool that takes a URL and returns a verdict (BENIGN / SUSPICIOUS / MALICIOUS) with evidence. A Claude tool-use loop drives a kit of classical analysis scripts: DNS, WHOIS, TLS, IOC extraction, threat-intel lookups, and a sandboxed headless render. The agent picks its own path through the toolkit and writes a structured report.
 
@@ -113,7 +118,7 @@ url-triage-agent/
 
 ## Two-day timeline
 
-### Day 1 — plumbing and core loop
+### Day 1: plumbing and core loop
 
 - Repo scaffold, `pyproject.toml`, `.env.example`, README skeleton.
 - Sandbox Dockerfile with Playwright + chromium.
@@ -124,7 +129,7 @@ url-triage-agent/
 
 **Exit criterion:** end-to-end run from CLI produces a report file. No web UI yet.
 
-### Day 2 — intel, UI, write-up
+### Day 2: intel, UI, write-up
 
 - Add `virustotal_lookup`, `urlscan_lookup`, `favicon_hash`, `brand_impersonation_check`.
 - SQLite store with run history table.
@@ -137,9 +142,9 @@ url-triage-agent/
 
 ## External services and keys needed
 
-- `ANTHROPIC_API_KEY` — required.
-- `VIRUSTOTAL_API_KEY` — free tier, 4 req/min, 500/day. Sign up at virustotal.com.
-- `URLSCAN_API_KEY` — free tier. Sign up at urlscan.io.
+- `ANTHROPIC_API_KEY`: required.
+- `VIRUSTOTAL_API_KEY`: free tier, 4 req/min, 500/day. Sign up at virustotal.com.
+- `URLSCAN_API_KEY`: free tier. Sign up at urlscan.io.
 - URLhaus needs no key.
 
 The agent degrades gracefully: if a key is missing, that tool returns `{"available": false}` and the agent works around it.
