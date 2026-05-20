@@ -21,7 +21,7 @@ $ uv run triage https://carbon-dating-calibration.garden/.../google.ct
 
 Hand it any URL. It picks the right investigative tools, reads the evidence, and returns a verdict (`BENIGN`, `SUSPICIOUS`, or `MALICIOUS`) with a confidence score and a corroborated evidence list.
 
-For the design rationale, threat model, and detailed component breakdown, see [`TECHNICAL.md`](TECHNICAL.md).
+Built in a single overnight session as a portfolio piece against the brief "Building AI Agents for Threat Detection". For the design rationale, threat model, and detailed component breakdown, see [`TECHNICAL.md`](TECHNICAL.md).
 
 ## What it does, in plain English
 

@@ -16,7 +16,7 @@ A deeper read of URL Triage Agent: the design choices, the trade-offs, and the e
 
 ## Motivation and scope
 
-The project was built in two days against a brief: produce something that demonstrates "Building AI Agents for Threat Detection" end to end, with code that a senior engineer would respect. The aim was an artefact, not a product. Scope-control was the dominant design pressure.
+The project was built in a single overnight session against a brief: produce something that demonstrates "Building AI Agents for Threat Detection" end to end, with code that a senior engineer would respect. The aim was an artefact, not a product. Scope-control was the dominant design pressure. The original plan (see [`PLAN.md`](PLAN.md)) was a two-day timeline; the build collapsed into one night, with the FastAPI web UI and SQLite store cut along the way.
 
 The constraint shaped every choice:
 
@@ -112,7 +112,7 @@ The defences, in roughly the order the kernel applies them:
 | Resources | `--memory=768m --cpus=1` | A fork bomb or memory-bomb page is contained |
 | Lifetime | `--rm` plus a new container per fetch | No state survives between runs |
 
-The page does have one valuable thing it can do: send DNS queries. UDP port 53 is open so Chromium can resolve hosts at runtime. A determined adversary could exfiltrate small amounts of data via DNS tunneling. Closing that hole would require writing a custom DNS proxy or pre-resolving and statically routing inside the container, both of which were out of scope for a two-day build. The trade-off is documented in `sandbox/entrypoint.sh`.
+The page does have one valuable thing it can do: send DNS queries. UDP port 53 is open so Chromium can resolve hosts at runtime. A determined adversary could exfiltrate small amounts of data via DNS tunneling. Closing that hole would require writing a custom DNS proxy or pre-resolving and statically routing inside the container, both of which were out of scope for the overnight build. The trade-off is documented in `sandbox/entrypoint.sh`.
 
 A second known limitation: on macOS, Docker Desktop runs containers inside a Linux VM, so the iptables rules apply within the container's network namespace and not on the host. This is fine for the threat model (we only care about containing the malicious page), but it's worth knowing that the host's firewall is not the enforcement point.
 
