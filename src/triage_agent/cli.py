@@ -25,7 +25,10 @@ from .agent_loop import run_triage
 
 
 # Load .env so ANTHROPIC_API_KEY (and friends) are available to the SDK.
-load_dotenv()
+# `override=True` because some shells pre-set ANTHROPIC_API_KEY to an empty
+# string, and python-dotenv's default behaviour is to preserve whatever's
+# already in os.environ — meaning the empty string would win.
+load_dotenv(override=True)
 
 app = typer.Typer(
     help="URL Triage Agent — investigate web links automatically.",
